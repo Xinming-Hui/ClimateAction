@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package climateaction;
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "grpc.generated.climateaction.alarm";
+option java_outer_classname = "AlarmServiceImpl";
+
+
+service Alarm {
+
+  // Unary - when the sensor detects abnormal climate values, it immediately alerts the server and waits for response confirmation
+  // Server confirms 
+  rpc Alarm(CO2Concentration ) returns (ConfirmationMessage) {}  
+}
+

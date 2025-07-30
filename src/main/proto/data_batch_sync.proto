@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package climateaction;
+
+import "common.proto";
+
+option java_multiple_files = true;
+option java_package = "grpc.generated.climateaction.batch";
+option java_outer_classname = "DataBatchSyncServiceImpl";
+
+service DataBatchSync {
+
+  // Client streaming - Batch upload of data accumulated 
+  // Server confirms 
+  rpc DataBatchSync(stream CO2Concentration ) returns (ConfirmationMessage) {}  
+}

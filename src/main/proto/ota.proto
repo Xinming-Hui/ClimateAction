@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package climateaction;
+
+option java_multiple_files = true;
+option java_package = "grpc.generated.climateaction.ota";
+option java_outer_classname = "OTAServiceImpl";
+
+
+service OTA {
+  // Server Streaming - Listen for OTA upgrade, the device reports its own firmware version number, and then continuously monitors whether there is a new version that needs to be upgraded.
+
+  rpc ListenForOTAUpgrade( DeviceInfo ) returns (stream FirmwareUpgrade) {}
+
+}
+
+message DeviceInfo {
+   string id = 1;
+   string firmware_version = 2;
+}
+
+message FirmwareUpgrade {
+   string id = 1;
+   bool upgrade = 2;
+   string version = 3;
+   string download_url = 4;
+   string sha256_hash = 5;
+}
