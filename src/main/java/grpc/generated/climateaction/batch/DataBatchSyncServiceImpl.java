@@ -24,11 +24,11 @@ public final class DataBatchSyncServiceImpl {
   static {
     java.lang.String[] descriptorData = {
       "\n\025data_batch_sync.proto\022\rclimateaction\032\014" +
-      "common.proto2i\n\rDataBatchSync\022X\n\rDataBat" +
+      "common.proto2e\n\rDataBatchSync\022T\n\rDataBat" +
       "chSync\022\037.climateaction.CO2Concentration\032" +
-      "\".climateaction.ConfirmationMessage\"\000(\001B" +
-      "@\n\"grpc.generated.climateaction.batchB\030D" +
-      "ataBatchSyncServiceImplP\001b\006proto3"
+      "\036.climateaction.ResponseMessage\"\000(\001B@\n\"g" +
+      "rpc.generated.climateaction.batchB\030DataB" +
+      "atchSyncServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

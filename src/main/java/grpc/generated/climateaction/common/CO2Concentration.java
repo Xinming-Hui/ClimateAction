@@ -17,7 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private CO2Concentration() {
     id_ = "";
-    timestamp_ = 0;
+    timestamp_ = 0L;
     concentration_ = 0F;
   }
 
@@ -53,7 +53,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            timestamp_ = input.readInt32();
+            timestamp_ = input.readInt64();
             break;
           }
           case 29: {
@@ -128,17 +128,21 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TIMESTAMP_FIELD_NUMBER = 2;
-  private int timestamp_;
+  private long timestamp_;
   /**
-   * <code>int32 timestamp = 2;</code>
+   * <code>int64 timestamp = 2;</code>
    */
-  public int getTimestamp() {
+  public long getTimestamp() {
     return timestamp_;
   }
 
   public static final int CONCENTRATION_FIELD_NUMBER = 3;
   private float concentration_;
   /**
+   * <pre>
+   * Threshold: 5000 ppm 
+   * </pre>
+   *
    * <code>float concentration = 3;</code>
    */
   public float getConcentration() {
@@ -162,8 +166,8 @@ private static final long serialVersionUID = 0L;
     if (!getIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
     }
-    if (timestamp_ != 0) {
-      output.writeInt32(2, timestamp_);
+    if (timestamp_ != 0L) {
+      output.writeInt64(2, timestamp_);
     }
     if (concentration_ != 0F) {
       output.writeFloat(3, concentration_);
@@ -180,9 +184,9 @@ private static final long serialVersionUID = 0L;
     if (!getIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
     }
-    if (timestamp_ != 0) {
+    if (timestamp_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, timestamp_);
+        .computeInt64Size(2, timestamp_);
     }
     if (concentration_ != 0F) {
       size += com.google.protobuf.CodedOutputStream
@@ -226,7 +230,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + getId().hashCode();
     hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-    hash = (53 * hash) + getTimestamp();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTimestamp());
     hash = (37 * hash) + CONCENTRATION_FIELD_NUMBER;
     hash = (53 * hash) + java.lang.Float.floatToIntBits(
         getConcentration());
@@ -365,7 +370,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       id_ = "";
 
-      timestamp_ = 0;
+      timestamp_ = 0L;
 
       concentration_ = 0F;
 
@@ -450,7 +455,7 @@ private static final long serialVersionUID = 0L;
         id_ = other.id_;
         onChanged();
       }
-      if (other.getTimestamp() != 0) {
+      if (other.getTimestamp() != 0L) {
         setTimestamp(other.getTimestamp());
       }
       if (other.getConcentration() != 0F) {
@@ -554,40 +559,48 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int timestamp_ ;
+    private long timestamp_ ;
     /**
-     * <code>int32 timestamp = 2;</code>
+     * <code>int64 timestamp = 2;</code>
      */
-    public int getTimestamp() {
+    public long getTimestamp() {
       return timestamp_;
     }
     /**
-     * <code>int32 timestamp = 2;</code>
+     * <code>int64 timestamp = 2;</code>
      */
-    public Builder setTimestamp(int value) {
+    public Builder setTimestamp(long value) {
       
       timestamp_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 timestamp = 2;</code>
+     * <code>int64 timestamp = 2;</code>
      */
     public Builder clearTimestamp() {
       
-      timestamp_ = 0;
+      timestamp_ = 0L;
       onChanged();
       return this;
     }
 
     private float concentration_ ;
     /**
+     * <pre>
+     * Threshold: 5000 ppm 
+     * </pre>
+     *
      * <code>float concentration = 3;</code>
      */
     public float getConcentration() {
       return concentration_;
     }
     /**
+     * <pre>
+     * Threshold: 5000 ppm 
+     * </pre>
+     *
      * <code>float concentration = 3;</code>
      */
     public Builder setConcentration(float value) {
@@ -597,6 +610,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
+     * <pre>
+     * Threshold: 5000 ppm 
+     * </pre>
+     *
      * <code>float concentration = 3;</code>
      */
     public Builder clearConcentration() {

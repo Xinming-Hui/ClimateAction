@@ -20,10 +20,10 @@ public final class Common {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_climateaction_CO2Concentration_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_climateaction_ConfirmationMessage_descriptor;
+    internal_static_climateaction_ResponseMessage_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_climateaction_ConfirmationMessage_fieldAccessorTable;
+      internal_static_climateaction_ResponseMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -34,9 +34,9 @@ public final class Common {
   static {
     java.lang.String[] descriptorData = {
       "\n\014common.proto\022\rclimateaction\"H\n\020CO2Conc" +
-      "entration\022\n\n\002id\030\001 \001(\t\022\021\n\ttimestamp\030\002 \001(\005" +
-      "\022\025\n\rconcentration\030\003 \001(\002\"2\n\023ConfirmationM" +
-      "essage\022\n\n\002ok\030\001 \001(\010\022\017\n\007message\030\002 \001(\tB\'\n#g" +
+      "entration\022\n\n\002id\030\001 \001(\t\022\021\n\ttimestamp\030\002 \001(\003" +
+      "\022\025\n\rconcentration\030\003 \001(\002\"2\n\017ResponseMessa" +
+      "ge\022\016\n\006result\030\001 \001(\010\022\017\n\007message\030\002 \001(\tB\'\n#g" +
       "rpc.generated.climateaction.commonP\001b\006pr" +
       "oto3"
     };
@@ -58,12 +58,12 @@ public final class Common {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_climateaction_CO2Concentration_descriptor,
         new java.lang.String[] { "Id", "Timestamp", "Concentration", });
-    internal_static_climateaction_ConfirmationMessage_descriptor =
+    internal_static_climateaction_ResponseMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_climateaction_ConfirmationMessage_fieldAccessorTable = new
+    internal_static_climateaction_ResponseMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_climateaction_ConfirmationMessage_descriptor,
-        new java.lang.String[] { "Ok", "Message", });
+        internal_static_climateaction_ResponseMessage_descriptor,
+        new java.lang.String[] { "Result", "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

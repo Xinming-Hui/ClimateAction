@@ -18,12 +18,12 @@ public interface DeviceInfoOrBuilder extends
       getIdBytes();
 
   /**
-   * <code>string firmware_version = 2;</code>
+   * <code>string version = 2;</code>
    */
-  java.lang.String getFirmwareVersion();
+  java.lang.String getVersion();
   /**
-   * <code>string firmware_version = 2;</code>
+   * <code>string version = 2;</code>
    */
   com.google.protobuf.ByteString
-      getFirmwareVersionBytes();
+      getVersionBytes();
 }

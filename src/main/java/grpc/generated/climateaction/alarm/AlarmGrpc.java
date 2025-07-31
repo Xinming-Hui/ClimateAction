@@ -28,21 +28,21 @@ public final class AlarmGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration,
-      grpc.generated.climateaction.common.ConfirmationMessage> getAlarmMethod;
+      grpc.generated.climateaction.common.ResponseMessage> getAlarmMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Alarm",
       requestType = grpc.generated.climateaction.common.CO2Concentration.class,
-      responseType = grpc.generated.climateaction.common.ConfirmationMessage.class,
+      responseType = grpc.generated.climateaction.common.ResponseMessage.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration,
-      grpc.generated.climateaction.common.ConfirmationMessage> getAlarmMethod() {
-    io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ConfirmationMessage> getAlarmMethod;
+      grpc.generated.climateaction.common.ResponseMessage> getAlarmMethod() {
+    io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ResponseMessage> getAlarmMethod;
     if ((getAlarmMethod = AlarmGrpc.getAlarmMethod) == null) {
       synchronized (AlarmGrpc.class) {
         if ((getAlarmMethod = AlarmGrpc.getAlarmMethod) == null) {
           AlarmGrpc.getAlarmMethod = getAlarmMethod = 
-              io.grpc.MethodDescriptor.<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ConfirmationMessage>newBuilder()
+              io.grpc.MethodDescriptor.<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ResponseMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "climateaction.Alarm", "Alarm"))
@@ -50,7 +50,7 @@ public final class AlarmGrpc {
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   grpc.generated.climateaction.common.CO2Concentration.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.generated.climateaction.common.ConfirmationMessage.getDefaultInstance()))
+                  grpc.generated.climateaction.common.ResponseMessage.getDefaultInstance()))
                   .setSchemaDescriptor(new AlarmMethodDescriptorSupplier("Alarm"))
                   .build();
           }
@@ -93,7 +93,7 @@ public final class AlarmGrpc {
      * </pre>
      */
     public void alarm(grpc.generated.climateaction.common.CO2Concentration request,
-        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ConfirmationMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ResponseMessage> responseObserver) {
       asyncUnimplementedUnaryCall(getAlarmMethod(), responseObserver);
     }
 
@@ -104,7 +104,7 @@ public final class AlarmGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 grpc.generated.climateaction.common.CO2Concentration,
-                grpc.generated.climateaction.common.ConfirmationMessage>(
+                grpc.generated.climateaction.common.ResponseMessage>(
                   this, METHODID_ALARM)))
           .build();
     }
@@ -135,7 +135,7 @@ public final class AlarmGrpc {
      * </pre>
      */
     public void alarm(grpc.generated.climateaction.common.CO2Concentration request,
-        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ConfirmationMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ResponseMessage> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getAlarmMethod(), getCallOptions()), request, responseObserver);
     }
@@ -165,7 +165,7 @@ public final class AlarmGrpc {
      * Server confirms 
      * </pre>
      */
-    public grpc.generated.climateaction.common.ConfirmationMessage alarm(grpc.generated.climateaction.common.CO2Concentration request) {
+    public grpc.generated.climateaction.common.ResponseMessage alarm(grpc.generated.climateaction.common.CO2Concentration request) {
       return blockingUnaryCall(
           getChannel(), getAlarmMethod(), getCallOptions(), request);
     }
@@ -195,7 +195,7 @@ public final class AlarmGrpc {
      * Server confirms 
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<grpc.generated.climateaction.common.ConfirmationMessage> alarm(
+    public com.google.common.util.concurrent.ListenableFuture<grpc.generated.climateaction.common.ResponseMessage> alarm(
         grpc.generated.climateaction.common.CO2Concentration request) {
       return futureUnaryCall(
           getChannel().newCall(getAlarmMethod(), getCallOptions()), request);
@@ -223,7 +223,7 @@ public final class AlarmGrpc {
       switch (methodId) {
         case METHODID_ALARM:
           serviceImpl.alarm((grpc.generated.climateaction.common.CO2Concentration) request,
-              (io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ConfirmationMessage>) responseObserver);
+              (io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ResponseMessage>) responseObserver);
           break;
         default:
           throw new AssertionError();

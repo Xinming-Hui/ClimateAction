@@ -18,11 +18,15 @@ public interface CO2ConcentrationOrBuilder extends
       getIdBytes();
 
   /**
-   * <code>int32 timestamp = 2;</code>
+   * <code>int64 timestamp = 2;</code>
    */
-  int getTimestamp();
+  long getTimestamp();
 
   /**
+   * <pre>
+   * Threshold: 5000 ppm 
+   * </pre>
+   *
    * <code>float concentration = 3;</code>
    */
   float getConcentration();

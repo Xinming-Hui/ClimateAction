@@ -24,10 +24,10 @@ public final class AlarmServiceImpl {
   static {
     java.lang.String[] descriptorData = {
       "\n\013alarm.proto\022\rclimateaction\032\014common.pro" +
-      "to2W\n\005Alarm\022N\n\005Alarm\022\037.climateaction.CO2" +
-      "Concentration\032\".climateaction.Confirmati" +
-      "onMessage\"\000B8\n\"grpc.generated.climateact" +
-      "ion.alarmB\020AlarmServiceImplP\001b\006proto3"
+      "to2S\n\005Alarm\022J\n\005Alarm\022\037.climateaction.CO2" +
+      "Concentration\032\036.climateaction.ResponseMe" +
+      "ssage\"\000B8\n\"grpc.generated.climateaction." +
+      "alarmB\020AlarmServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

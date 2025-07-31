@@ -33,15 +33,15 @@ public final class OTAServiceImpl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tota.proto\022\rclimateaction\"2\n\nDeviceInfo" +
-      "\022\n\n\002id\030\001 \001(\t\022\030\n\020firmware_version\030\002 \001(\t\"j" +
-      "\n\017FirmwareUpgrade\022\n\n\002id\030\001 \001(\t\022\017\n\007upgrade" +
-      "\030\002 \001(\010\022\017\n\007version\030\003 \001(\t\022\024\n\014download_url\030" +
-      "\004 \001(\t\022\023\n\013sha256_hash\030\005 \001(\t2[\n\003OTA\022T\n\023Lis" +
-      "tenForOTAUpgrade\022\031.climateaction.DeviceI" +
-      "nfo\032\036.climateaction.FirmwareUpgrade\"\0000\001B" +
-      "4\n grpc.generated.climateaction.otaB\016OTA" +
-      "ServiceImplP\001b\006proto3"
+      "\n\tota.proto\022\rclimateaction\")\n\nDeviceInfo" +
+      "\022\n\n\002id\030\001 \001(\t\022\017\n\007version\030\002 \001(\t\"j\n\017Firmwar" +
+      "eUpgrade\022\n\n\002id\030\001 \001(\t\022\017\n\007upgrade\030\002 \001(\010\022\017\n" +
+      "\007version\030\003 \001(\t\022\024\n\014download_url\030\004 \001(\t\022\023\n\013" +
+      "sha256_hash\030\005 \001(\t2[\n\003OTA\022T\n\023ListenForOTA" +
+      "Upgrade\022\031.climateaction.DeviceInfo\032\036.cli" +
+      "mateaction.FirmwareUpgrade\"\0000\001B4\n grpc.g" +
+      "enerated.climateaction.otaB\016OTAServiceIm" +
+      "plP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -60,7 +60,7 @@ public final class OTAServiceImpl {
     internal_static_climateaction_DeviceInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_climateaction_DeviceInfo_descriptor,
-        new java.lang.String[] { "Id", "FirmwareVersion", });
+        new java.lang.String[] { "Id", "Version", });
     internal_static_climateaction_FirmwareUpgrade_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_climateaction_FirmwareUpgrade_fieldAccessorTable = new

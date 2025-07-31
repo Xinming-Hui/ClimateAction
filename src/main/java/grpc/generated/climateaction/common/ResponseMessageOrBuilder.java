@@ -3,14 +3,14 @@
 
 package grpc.generated.climateaction.common;
 
-public interface ConfirmationMessageOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:climateaction.ConfirmationMessage)
+public interface ResponseMessageOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:climateaction.ResponseMessage)
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool ok = 1;</code>
+   * <code>bool result = 1;</code>
    */
-  boolean getOk();
+  boolean getResult();
 
   /**
    * <code>string message = 2;</code>

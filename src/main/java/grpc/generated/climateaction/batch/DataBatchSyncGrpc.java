@@ -28,21 +28,21 @@ public final class DataBatchSyncGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration,
-      grpc.generated.climateaction.common.ConfirmationMessage> getDataBatchSyncMethod;
+      grpc.generated.climateaction.common.ResponseMessage> getDataBatchSyncMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "DataBatchSync",
       requestType = grpc.generated.climateaction.common.CO2Concentration.class,
-      responseType = grpc.generated.climateaction.common.ConfirmationMessage.class,
+      responseType = grpc.generated.climateaction.common.ResponseMessage.class,
       methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
   public static io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration,
-      grpc.generated.climateaction.common.ConfirmationMessage> getDataBatchSyncMethod() {
-    io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ConfirmationMessage> getDataBatchSyncMethod;
+      grpc.generated.climateaction.common.ResponseMessage> getDataBatchSyncMethod() {
+    io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ResponseMessage> getDataBatchSyncMethod;
     if ((getDataBatchSyncMethod = DataBatchSyncGrpc.getDataBatchSyncMethod) == null) {
       synchronized (DataBatchSyncGrpc.class) {
         if ((getDataBatchSyncMethod = DataBatchSyncGrpc.getDataBatchSyncMethod) == null) {
           DataBatchSyncGrpc.getDataBatchSyncMethod = getDataBatchSyncMethod = 
-              io.grpc.MethodDescriptor.<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ConfirmationMessage>newBuilder()
+              io.grpc.MethodDescriptor.<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.common.ResponseMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "climateaction.DataBatchSync", "DataBatchSync"))
@@ -50,7 +50,7 @@ public final class DataBatchSyncGrpc {
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   grpc.generated.climateaction.common.CO2Concentration.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.generated.climateaction.common.ConfirmationMessage.getDefaultInstance()))
+                  grpc.generated.climateaction.common.ResponseMessage.getDefaultInstance()))
                   .setSchemaDescriptor(new DataBatchSyncMethodDescriptorSupplier("DataBatchSync"))
                   .build();
           }
@@ -93,7 +93,7 @@ public final class DataBatchSyncGrpc {
      * </pre>
      */
     public io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.CO2Concentration> dataBatchSync(
-        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ConfirmationMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ResponseMessage> responseObserver) {
       return asyncUnimplementedStreamingCall(getDataBatchSyncMethod(), responseObserver);
     }
 
@@ -104,7 +104,7 @@ public final class DataBatchSyncGrpc {
             asyncClientStreamingCall(
               new MethodHandlers<
                 grpc.generated.climateaction.common.CO2Concentration,
-                grpc.generated.climateaction.common.ConfirmationMessage>(
+                grpc.generated.climateaction.common.ResponseMessage>(
                   this, METHODID_DATA_BATCH_SYNC)))
           .build();
     }
@@ -135,7 +135,7 @@ public final class DataBatchSyncGrpc {
      * </pre>
      */
     public io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.CO2Concentration> dataBatchSync(
-        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ConfirmationMessage> responseObserver) {
+        io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ResponseMessage> responseObserver) {
       return asyncClientStreamingCall(
           getChannel().newCall(getDataBatchSyncMethod(), getCallOptions()), responseObserver);
     }
@@ -210,7 +210,7 @@ public final class DataBatchSyncGrpc {
       switch (methodId) {
         case METHODID_DATA_BATCH_SYNC:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.dataBatchSync(
-              (io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ConfirmationMessage>) responseObserver);
+              (io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.ResponseMessage>) responseObserver);
         default:
           throw new AssertionError();
       }

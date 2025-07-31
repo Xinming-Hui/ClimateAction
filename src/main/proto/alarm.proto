@@ -13,6 +13,6 @@ service Alarm {
 
   // Unary - when the sensor detects abnormal climate values, it immediately alerts the server and waits for response confirmation
   // Server confirms 
-  rpc Alarm(CO2Concentration ) returns (ConfirmationMessage) {}  
+  rpc Alarm(CO2Concentration ) returns (ResponseMessage) {}  
 }
 

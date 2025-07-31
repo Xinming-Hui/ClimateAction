@@ -4,19 +4,19 @@
 package grpc.generated.climateaction.common;
 
 /**
- * Protobuf type {@code climateaction.ConfirmationMessage}
+ * Protobuf type {@code climateaction.ResponseMessage}
  */
-public  final class ConfirmationMessage extends
+public  final class ResponseMessage extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:climateaction.ConfirmationMessage)
-    ConfirmationMessageOrBuilder {
+    // @@protoc_insertion_point(message_implements:climateaction.ResponseMessage)
+    ResponseMessageOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use ConfirmationMessage.newBuilder() to construct.
-  private ConfirmationMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use ResponseMessage.newBuilder() to construct.
+  private ResponseMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private ConfirmationMessage() {
-    ok_ = false;
+  private ResponseMessage() {
+    result_ = false;
     message_ = "";
   }
 
@@ -25,7 +25,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private ConfirmationMessage(
+  private ResponseMessage(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -46,7 +46,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            ok_ = input.readBool();
+            result_ = input.readBool();
             break;
           }
           case 18: {
@@ -76,24 +76,24 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return grpc.generated.climateaction.common.Common.internal_static_climateaction_ConfirmationMessage_descriptor;
+    return grpc.generated.climateaction.common.Common.internal_static_climateaction_ResponseMessage_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return grpc.generated.climateaction.common.Common.internal_static_climateaction_ConfirmationMessage_fieldAccessorTable
+    return grpc.generated.climateaction.common.Common.internal_static_climateaction_ResponseMessage_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            grpc.generated.climateaction.common.ConfirmationMessage.class, grpc.generated.climateaction.common.ConfirmationMessage.Builder.class);
+            grpc.generated.climateaction.common.ResponseMessage.class, grpc.generated.climateaction.common.ResponseMessage.Builder.class);
   }
 
-  public static final int OK_FIELD_NUMBER = 1;
-  private boolean ok_;
+  public static final int RESULT_FIELD_NUMBER = 1;
+  private boolean result_;
   /**
-   * <code>bool ok = 1;</code>
+   * <code>bool result = 1;</code>
    */
-  public boolean getOk() {
-    return ok_;
+  public boolean getResult() {
+    return result_;
   }
 
   public static final int MESSAGE_FIELD_NUMBER = 2;
@@ -144,8 +144,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (ok_ != false) {
-      output.writeBool(1, ok_);
+    if (result_ != false) {
+      output.writeBool(1, result_);
     }
     if (!getMessageBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
@@ -159,9 +159,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (ok_ != false) {
+    if (result_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(1, ok_);
+        .computeBoolSize(1, result_);
     }
     if (!getMessageBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
@@ -176,14 +176,14 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof grpc.generated.climateaction.common.ConfirmationMessage)) {
+    if (!(obj instanceof grpc.generated.climateaction.common.ResponseMessage)) {
       return super.equals(obj);
     }
-    grpc.generated.climateaction.common.ConfirmationMessage other = (grpc.generated.climateaction.common.ConfirmationMessage) obj;
+    grpc.generated.climateaction.common.ResponseMessage other = (grpc.generated.climateaction.common.ResponseMessage) obj;
 
     boolean result = true;
-    result = result && (getOk()
-        == other.getOk());
+    result = result && (getResult()
+        == other.getResult());
     result = result && getMessage()
         .equals(other.getMessage());
     result = result && unknownFields.equals(other.unknownFields);
@@ -197,9 +197,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + OK_FIELD_NUMBER;
+    hash = (37 * hash) + RESULT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getOk());
+        getResult());
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -207,69 +207,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(byte[] data)
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(java.io.InputStream input)
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseDelimitedFrom(java.io.InputStream input)
+  public static grpc.generated.climateaction.common.ResponseMessage parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseDelimitedFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static grpc.generated.climateaction.common.ConfirmationMessage parseFrom(
+  public static grpc.generated.climateaction.common.ResponseMessage parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -282,7 +282,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(grpc.generated.climateaction.common.ConfirmationMessage prototype) {
+  public static Builder newBuilder(grpc.generated.climateaction.common.ResponseMessage prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -298,26 +298,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code climateaction.ConfirmationMessage}
+   * Protobuf type {@code climateaction.ResponseMessage}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:climateaction.ConfirmationMessage)
-      grpc.generated.climateaction.common.ConfirmationMessageOrBuilder {
+      // @@protoc_insertion_point(builder_implements:climateaction.ResponseMessage)
+      grpc.generated.climateaction.common.ResponseMessageOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return grpc.generated.climateaction.common.Common.internal_static_climateaction_ConfirmationMessage_descriptor;
+      return grpc.generated.climateaction.common.Common.internal_static_climateaction_ResponseMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return grpc.generated.climateaction.common.Common.internal_static_climateaction_ConfirmationMessage_fieldAccessorTable
+      return grpc.generated.climateaction.common.Common.internal_static_climateaction_ResponseMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              grpc.generated.climateaction.common.ConfirmationMessage.class, grpc.generated.climateaction.common.ConfirmationMessage.Builder.class);
+              grpc.generated.climateaction.common.ResponseMessage.class, grpc.generated.climateaction.common.ResponseMessage.Builder.class);
     }
 
-    // Construct using grpc.generated.climateaction.common.ConfirmationMessage.newBuilder()
+    // Construct using grpc.generated.climateaction.common.ResponseMessage.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -335,7 +335,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      ok_ = false;
+      result_ = false;
 
       message_ = "";
 
@@ -345,17 +345,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return grpc.generated.climateaction.common.Common.internal_static_climateaction_ConfirmationMessage_descriptor;
+      return grpc.generated.climateaction.common.Common.internal_static_climateaction_ResponseMessage_descriptor;
     }
 
     @java.lang.Override
-    public grpc.generated.climateaction.common.ConfirmationMessage getDefaultInstanceForType() {
-      return grpc.generated.climateaction.common.ConfirmationMessage.getDefaultInstance();
+    public grpc.generated.climateaction.common.ResponseMessage getDefaultInstanceForType() {
+      return grpc.generated.climateaction.common.ResponseMessage.getDefaultInstance();
     }
 
     @java.lang.Override
-    public grpc.generated.climateaction.common.ConfirmationMessage build() {
-      grpc.generated.climateaction.common.ConfirmationMessage result = buildPartial();
+    public grpc.generated.climateaction.common.ResponseMessage build() {
+      grpc.generated.climateaction.common.ResponseMessage result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -363,9 +363,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public grpc.generated.climateaction.common.ConfirmationMessage buildPartial() {
-      grpc.generated.climateaction.common.ConfirmationMessage result = new grpc.generated.climateaction.common.ConfirmationMessage(this);
-      result.ok_ = ok_;
+    public grpc.generated.climateaction.common.ResponseMessage buildPartial() {
+      grpc.generated.climateaction.common.ResponseMessage result = new grpc.generated.climateaction.common.ResponseMessage(this);
+      result.result_ = result_;
       result.message_ = message_;
       onBuilt();
       return result;
@@ -405,18 +405,18 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof grpc.generated.climateaction.common.ConfirmationMessage) {
-        return mergeFrom((grpc.generated.climateaction.common.ConfirmationMessage)other);
+      if (other instanceof grpc.generated.climateaction.common.ResponseMessage) {
+        return mergeFrom((grpc.generated.climateaction.common.ResponseMessage)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(grpc.generated.climateaction.common.ConfirmationMessage other) {
-      if (other == grpc.generated.climateaction.common.ConfirmationMessage.getDefaultInstance()) return this;
-      if (other.getOk() != false) {
-        setOk(other.getOk());
+    public Builder mergeFrom(grpc.generated.climateaction.common.ResponseMessage other) {
+      if (other == grpc.generated.climateaction.common.ResponseMessage.getDefaultInstance()) return this;
+      if (other.getResult() != false) {
+        setResult(other.getResult());
       }
       if (!other.getMessage().isEmpty()) {
         message_ = other.message_;
@@ -437,11 +437,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      grpc.generated.climateaction.common.ConfirmationMessage parsedMessage = null;
+      grpc.generated.climateaction.common.ResponseMessage parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (grpc.generated.climateaction.common.ConfirmationMessage) e.getUnfinishedMessage();
+        parsedMessage = (grpc.generated.climateaction.common.ResponseMessage) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -451,28 +451,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean ok_ ;
+    private boolean result_ ;
     /**
-     * <code>bool ok = 1;</code>
+     * <code>bool result = 1;</code>
      */
-    public boolean getOk() {
-      return ok_;
+    public boolean getResult() {
+      return result_;
     }
     /**
-     * <code>bool ok = 1;</code>
+     * <code>bool result = 1;</code>
      */
-    public Builder setOk(boolean value) {
+    public Builder setResult(boolean value) {
       
-      ok_ = value;
+      result_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bool ok = 1;</code>
+     * <code>bool result = 1;</code>
      */
-    public Builder clearOk() {
+    public Builder clearResult() {
       
-      ok_ = false;
+      result_ = false;
       onChanged();
       return this;
     }
@@ -558,41 +558,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:climateaction.ConfirmationMessage)
+    // @@protoc_insertion_point(builder_scope:climateaction.ResponseMessage)
   }
 
-  // @@protoc_insertion_point(class_scope:climateaction.ConfirmationMessage)
-  private static final grpc.generated.climateaction.common.ConfirmationMessage DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:climateaction.ResponseMessage)
+  private static final grpc.generated.climateaction.common.ResponseMessage DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new grpc.generated.climateaction.common.ConfirmationMessage();
+    DEFAULT_INSTANCE = new grpc.generated.climateaction.common.ResponseMessage();
   }
 
-  public static grpc.generated.climateaction.common.ConfirmationMessage getDefaultInstance() {
+  public static grpc.generated.climateaction.common.ResponseMessage getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<ConfirmationMessage>
-      PARSER = new com.google.protobuf.AbstractParser<ConfirmationMessage>() {
+  private static final com.google.protobuf.Parser<ResponseMessage>
+      PARSER = new com.google.protobuf.AbstractParser<ResponseMessage>() {
     @java.lang.Override
-    public ConfirmationMessage parsePartialFrom(
+    public ResponseMessage parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new ConfirmationMessage(input, extensionRegistry);
+      return new ResponseMessage(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<ConfirmationMessage> parser() {
+  public static com.google.protobuf.Parser<ResponseMessage> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<ConfirmationMessage> getParserForType() {
+  public com.google.protobuf.Parser<ResponseMessage> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public grpc.generated.climateaction.common.ConfirmationMessage getDefaultInstanceForType() {
+  public grpc.generated.climateaction.common.ResponseMessage getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

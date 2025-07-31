@@ -17,7 +17,7 @@ private static final long serialVersionUID = 0L;
   }
   private DeviceInfo() {
     id_ = "";
-    firmwareVersion_ = "";
+    version_ = "";
   }
 
   @java.lang.Override
@@ -53,7 +53,7 @@ private static final long serialVersionUID = 0L;
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            firmwareVersion_ = s;
+            version_ = s;
             break;
           }
           default: {
@@ -122,34 +122,34 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int FIRMWARE_VERSION_FIELD_NUMBER = 2;
-  private volatile java.lang.Object firmwareVersion_;
+  public static final int VERSION_FIELD_NUMBER = 2;
+  private volatile java.lang.Object version_;
   /**
-   * <code>string firmware_version = 2;</code>
+   * <code>string version = 2;</code>
    */
-  public java.lang.String getFirmwareVersion() {
-    java.lang.Object ref = firmwareVersion_;
+  public java.lang.String getVersion() {
+    java.lang.Object ref = version_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      firmwareVersion_ = s;
+      version_ = s;
       return s;
     }
   }
   /**
-   * <code>string firmware_version = 2;</code>
+   * <code>string version = 2;</code>
    */
   public com.google.protobuf.ByteString
-      getFirmwareVersionBytes() {
-    java.lang.Object ref = firmwareVersion_;
+      getVersionBytes() {
+    java.lang.Object ref = version_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      firmwareVersion_ = b;
+      version_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -173,8 +173,8 @@ private static final long serialVersionUID = 0L;
     if (!getIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
     }
-    if (!getFirmwareVersionBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, firmwareVersion_);
+    if (!getVersionBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, version_);
     }
     unknownFields.writeTo(output);
   }
@@ -188,8 +188,8 @@ private static final long serialVersionUID = 0L;
     if (!getIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
     }
-    if (!getFirmwareVersionBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, firmwareVersion_);
+    if (!getVersionBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, version_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -209,8 +209,8 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && getId()
         .equals(other.getId());
-    result = result && getFirmwareVersion()
-        .equals(other.getFirmwareVersion());
+    result = result && getVersion()
+        .equals(other.getVersion());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -224,8 +224,8 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + getId().hashCode();
-    hash = (37 * hash) + FIRMWARE_VERSION_FIELD_NUMBER;
-    hash = (53 * hash) + getFirmwareVersion().hashCode();
+    hash = (37 * hash) + VERSION_FIELD_NUMBER;
+    hash = (53 * hash) + getVersion().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -361,7 +361,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       id_ = "";
 
-      firmwareVersion_ = "";
+      version_ = "";
 
       return this;
     }
@@ -390,7 +390,7 @@ private static final long serialVersionUID = 0L;
     public grpc.generated.climateaction.ota.DeviceInfo buildPartial() {
       grpc.generated.climateaction.ota.DeviceInfo result = new grpc.generated.climateaction.ota.DeviceInfo(this);
       result.id_ = id_;
-      result.firmwareVersion_ = firmwareVersion_;
+      result.version_ = version_;
       onBuilt();
       return result;
     }
@@ -443,8 +443,8 @@ private static final long serialVersionUID = 0L;
         id_ = other.id_;
         onChanged();
       }
-      if (!other.getFirmwareVersion().isEmpty()) {
-        firmwareVersion_ = other.firmwareVersion_;
+      if (!other.getVersion().isEmpty()) {
+        version_ = other.version_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -545,71 +545,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object firmwareVersion_ = "";
+    private java.lang.Object version_ = "";
     /**
-     * <code>string firmware_version = 2;</code>
+     * <code>string version = 2;</code>
      */
-    public java.lang.String getFirmwareVersion() {
-      java.lang.Object ref = firmwareVersion_;
+    public java.lang.String getVersion() {
+      java.lang.Object ref = version_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        firmwareVersion_ = s;
+        version_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string firmware_version = 2;</code>
+     * <code>string version = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getFirmwareVersionBytes() {
-      java.lang.Object ref = firmwareVersion_;
+        getVersionBytes() {
+      java.lang.Object ref = version_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        firmwareVersion_ = b;
+        version_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string firmware_version = 2;</code>
+     * <code>string version = 2;</code>
      */
-    public Builder setFirmwareVersion(
+    public Builder setVersion(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      firmwareVersion_ = value;
+      version_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string firmware_version = 2;</code>
+     * <code>string version = 2;</code>
      */
-    public Builder clearFirmwareVersion() {
+    public Builder clearVersion() {
       
-      firmwareVersion_ = getDefaultInstance().getFirmwareVersion();
+      version_ = getDefaultInstance().getVersion();
       onChanged();
       return this;
     }
     /**
-     * <code>string firmware_version = 2;</code>
+     * <code>string version = 2;</code>
      */
-    public Builder setFirmwareVersionBytes(
+    public Builder setVersionBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      firmwareVersion_ = value;
+      version_ = value;
       onChanged();
       return this;
     }
