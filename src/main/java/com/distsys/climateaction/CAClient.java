@@ -2,6 +2,8 @@ package com.distsys.climateaction;
 
 import grpc.generated.climateaction.alarm.AlarmGrpc;
 import grpc.generated.climateaction.alarm.AlarmGrpc.AlarmBlockingStub;
+import grpc.generated.climateaction.batch.DataBatchSyncGrpc;
+import grpc.generated.climateaction.batch.DataBatchSyncGrpc.DataBatchSyncStub;
 import grpc.generated.climateaction.common.CO2Concentration;
 import grpc.generated.climateaction.common.ResponseMessage;
 import grpc.generated.climateaction.ota.DeviceInfo;
@@ -25,7 +27,8 @@ public class CAClient {
     public static void main(String[] args) throws InterruptedException  {
         CAClient client = new CAClient();
 //        client.testAlarmServer();
-        client.testOTAServer();
+//        client.testOTAServer();
+        client.testDataBatchSyncServer();
     }
     
     public void testAlarmServer() throws InterruptedException {
@@ -97,5 +100,74 @@ public class CAClient {
             //shutdown channel
             channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
         }
+    }
+    
+    
+    public void testDataBatchSyncServer() throws InterruptedException {
+        String host = "localhost";
+        int port = 50053;
+        ManagedChannel channel = ManagedChannelBuilder.
+                forAddress(host, port)
+                .usePlaintext()
+                .build();
+       DataBatchSyncStub stub = DataBatchSyncGrpc.newStub(channel);
+       
+       StreamObserver<ResponseMessage> responseObserver = new StreamObserver<ResponseMessage>() {
+            @Override
+            public void onNext(ResponseMessage v) {
+                System.out.println(v.toString());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.out.println("DataBatchSync response error: " + t.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("Data batch sync is completed");
+            }
+       
+       };
+        
+    
+       StreamObserver<CO2Concentration> requestObserver = stub.dataBatchSync(responseObserver);
+       
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration1 = CO2Concentration.newBuilder()
+               .setId("123")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(876)
+               .build();
+       requestObserver.onNext(concentration1);
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration2 = CO2Concentration.newBuilder()
+               .setId("456")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(952)
+               .build();
+       requestObserver.onNext(concentration2);
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration3 = CO2Concentration.newBuilder()
+               .setId("7689")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(1001)
+               .build();
+       requestObserver.onNext(concentration3);
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration4 = CO2Concentration.newBuilder()
+               .setId("2967")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(999)
+               .build();
+       requestObserver.onNext(concentration4);
+       Thread.sleep(1000);
+       
+       requestObserver.onCompleted();
+       Thread.sleep(1000);
     }
 }
