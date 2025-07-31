@@ -31,28 +31,28 @@ public final class CO2MonitorGrpc {
   public static final String SERVICE_NAME = "climateaction.CO2Monitor";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<grpc.generated.climateaction.monitor.CO2Concentration,
+  private static volatile io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration,
       grpc.generated.climateaction.monitor.CO2Stats> getReportCO2Method;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "ReportCO2",
-      requestType = grpc.generated.climateaction.monitor.CO2Concentration.class,
+      requestType = grpc.generated.climateaction.common.CO2Concentration.class,
       responseType = grpc.generated.climateaction.monitor.CO2Stats.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
-  public static io.grpc.MethodDescriptor<grpc.generated.climateaction.monitor.CO2Concentration,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration,
       grpc.generated.climateaction.monitor.CO2Stats> getReportCO2Method() {
-    io.grpc.MethodDescriptor<grpc.generated.climateaction.monitor.CO2Concentration, grpc.generated.climateaction.monitor.CO2Stats> getReportCO2Method;
+    io.grpc.MethodDescriptor<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.monitor.CO2Stats> getReportCO2Method;
     if ((getReportCO2Method = CO2MonitorGrpc.getReportCO2Method) == null) {
       synchronized (CO2MonitorGrpc.class) {
         if ((getReportCO2Method = CO2MonitorGrpc.getReportCO2Method) == null) {
           CO2MonitorGrpc.getReportCO2Method = getReportCO2Method = 
-              io.grpc.MethodDescriptor.<grpc.generated.climateaction.monitor.CO2Concentration, grpc.generated.climateaction.monitor.CO2Stats>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              io.grpc.MethodDescriptor.<grpc.generated.climateaction.common.CO2Concentration, grpc.generated.climateaction.monitor.CO2Stats>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "climateaction.CO2Monitor", "ReportCO2"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.generated.climateaction.monitor.CO2Concentration.getDefaultInstance()))
+                  grpc.generated.climateaction.common.CO2Concentration.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   grpc.generated.climateaction.monitor.CO2Stats.getDefaultInstance()))
                   .setSchemaDescriptor(new CO2MonitorMethodDescriptorSupplier("ReportCO2"))
@@ -96,7 +96,7 @@ public final class CO2MonitorGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<grpc.generated.climateaction.monitor.CO2Concentration> reportCO2(
+    public io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.CO2Concentration> reportCO2(
         io.grpc.stub.StreamObserver<grpc.generated.climateaction.monitor.CO2Stats> responseObserver) {
       return asyncUnimplementedStreamingCall(getReportCO2Method(), responseObserver);
     }
@@ -105,9 +105,9 @@ public final class CO2MonitorGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getReportCO2Method(),
-            asyncClientStreamingCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
-                grpc.generated.climateaction.monitor.CO2Concentration,
+                grpc.generated.climateaction.common.CO2Concentration,
                 grpc.generated.climateaction.monitor.CO2Stats>(
                   this, METHODID_REPORT_CO2)))
           .build();
@@ -138,9 +138,9 @@ public final class CO2MonitorGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<grpc.generated.climateaction.monitor.CO2Concentration> reportCO2(
+    public io.grpc.stub.StreamObserver<grpc.generated.climateaction.common.CO2Concentration> reportCO2(
         io.grpc.stub.StreamObserver<grpc.generated.climateaction.monitor.CO2Stats> responseObserver) {
-      return asyncClientStreamingCall(
+      return asyncBidiStreamingCall(
           getChannel().newCall(getReportCO2Method(), getCallOptions()), responseObserver);
     }
   }

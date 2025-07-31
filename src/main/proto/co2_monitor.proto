@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "common.proto";
+
 package climateaction;
 
 option java_multiple_files = true;
@@ -11,13 +13,9 @@ service CO2Monitor {
    // Bidirectional. The client reports the carbon dioxide (CO2) concentration continuously. 
    // The server responds continuously with a rolling statistics of the CO2 concentration over the previous 3 minutes
 
-   rpc ReportCO2(stream CO2Concentration ) returns (CO2Stats) {}
+   rpc ReportCO2(stream CO2Concentration ) returns (stream CO2Stats) {}
 }
 
-message CO2Concentration {
-   string id = 1;
-   float concentration = 2;
-}
 
 message CO2Stats {
    string id = 1;

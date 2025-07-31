@@ -15,11 +15,6 @@ public final class CO2MonitorServiceImpl {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_climateaction_CO2Concentration_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_climateaction_CO2Concentration_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_climateaction_CO2Stats_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -33,14 +28,13 @@ public final class CO2MonitorServiceImpl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021co2_monitor.proto\022\rclimateaction\"5\n\020CO" +
-      "2Concentration\022\n\n\002id\030\001 \001(\t\022\025\n\rconcentrat" +
-      "ion\030\002 \001(\002\"=\n\010CO2Stats\022\n\n\002id\030\001 \001(\t\022\013\n\003max" +
-      "\030\002 \001(\002\022\013\n\003min\030\003 \001(\002\022\013\n\003avg\030\004 \001(\0022W\n\nCO2M" +
-      "onitor\022I\n\tReportCO2\022\037.climateaction.CO2C" +
-      "oncentration\032\027.climateaction.CO2Stats\"\000(" +
-      "\001B?\n$grpc.generated.climateaction.monito" +
-      "rB\025CO2MonitorServiceImplP\001b\006proto3"
+      "\n\021co2_monitor.proto\022\rclimateaction\032\014comm" +
+      "on.proto\"=\n\010CO2Stats\022\n\n\002id\030\001 \001(\t\022\013\n\003max\030" +
+      "\002 \001(\002\022\013\n\003min\030\003 \001(\002\022\013\n\003avg\030\004 \001(\0022Y\n\nCO2Mo" +
+      "nitor\022K\n\tReportCO2\022\037.climateaction.CO2Co" +
+      "ncentration\032\027.climateaction.CO2Stats\"\000(\001" +
+      "0\001B?\n$grpc.generated.climateaction.monit" +
+      "orB\025CO2MonitorServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -53,19 +47,15 @@ public final class CO2MonitorServiceImpl {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          grpc.generated.climateaction.common.Common.getDescriptor(),
         }, assigner);
-    internal_static_climateaction_CO2Concentration_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_climateaction_CO2Concentration_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_climateaction_CO2Concentration_descriptor,
-        new java.lang.String[] { "Id", "Concentration", });
     internal_static_climateaction_CO2Stats_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_climateaction_CO2Stats_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_climateaction_CO2Stats_descriptor,
         new java.lang.String[] { "Id", "Max", "Min", "Avg", });
+    grpc.generated.climateaction.common.Common.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

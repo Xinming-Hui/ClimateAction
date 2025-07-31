@@ -6,6 +6,9 @@ import grpc.generated.climateaction.batch.DataBatchSyncGrpc;
 import grpc.generated.climateaction.batch.DataBatchSyncGrpc.DataBatchSyncStub;
 import grpc.generated.climateaction.common.CO2Concentration;
 import grpc.generated.climateaction.common.ResponseMessage;
+import grpc.generated.climateaction.monitor.CO2MonitorGrpc;
+import grpc.generated.climateaction.monitor.CO2MonitorGrpc.CO2MonitorStub;
+import grpc.generated.climateaction.monitor.CO2Stats;
 import grpc.generated.climateaction.ota.DeviceInfo;
 import grpc.generated.climateaction.ota.FirmwareUpgrade;
 import grpc.generated.climateaction.ota.OTAGrpc;
@@ -28,7 +31,8 @@ public class CAClient {
         CAClient client = new CAClient();
 //        client.testAlarmServer();
 //        client.testOTAServer();
-        client.testDataBatchSyncServer();
+//        client.testDataBatchSyncServer();
+        client.testCO2MonitorServer();
     }
     
     public void testAlarmServer() throws InterruptedException {
@@ -165,6 +169,76 @@ public class CAClient {
                .setConcentration(999)
                .build();
        requestObserver.onNext(concentration4);
+       Thread.sleep(1000);
+       
+       requestObserver.onCompleted();
+       Thread.sleep(1000);
+    }
+    
+    public void testCO2MonitorServer() throws InterruptedException {
+        String host = "localhost";
+        int port = 50054;
+        ManagedChannel channel = ManagedChannelBuilder.
+                forAddress(host, port)
+                .usePlaintext()
+                .build();
+       CO2MonitorStub stub = CO2MonitorGrpc.newStub(channel);
+       
+       StreamObserver<CO2Stats> responseObserver = new StreamObserver<CO2Stats>() {
+            @Override
+            public void onNext(CO2Stats v) {
+                System.out.println("Current CO2 concentration statistics: ");
+                System.out.println(v.toString());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.out.println("CO2Monitor response error: " + t.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("CO2 concentration report is completed");
+            }
+       
+       };
+        
+    
+       StreamObserver<CO2Concentration> requestObserver = stub.reportCO2(responseObserver);
+       
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration1 = CO2Concentration.newBuilder()
+               .setId("123")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(876)
+               .build();
+       requestObserver.onNext(concentration1);
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration2 = CO2Concentration.newBuilder()
+               .setId("123")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(952)
+               .build();
+       requestObserver.onNext(concentration2);
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration3 = CO2Concentration.newBuilder()
+               .setId("123")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(1001)
+               .build();
+       requestObserver.onNext(concentration3);
+       Thread.sleep(1000);
+       
+       CO2Concentration concentration4 = CO2Concentration.newBuilder()
+               .setId("123")
+               .setTimestamp(System.currentTimeMillis())
+               .setConcentration(999)
+               .build();
+       requestObserver.onNext(concentration4);
+       
        Thread.sleep(1000);
        
        requestObserver.onCompleted();
