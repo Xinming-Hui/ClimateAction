@@ -26,6 +26,9 @@ public class DataBatchSyncServer extends DataBatchSyncImplBase {
                     .build()
                     .start();
             System.out.println("Server started, listening on " + port);
+            // The server registers itself so that clients can discover it
+            ServiceRegistration sg = ServiceRegistration.getInstance();
+            sg.registerService("_grpc._tcp.local.", "databatchsync", port, "DataBatchSync server allows batch uploading of data for efficiency");
             server.awaitTermination();
 
         } catch (IOException e) {

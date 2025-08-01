@@ -26,6 +26,9 @@ public class CO2MonitorServer extends CO2MonitorImplBase {
                     .build()
                     .start();
             System.out.println("Server started, listening on " + port);
+            // The server registers itself so that clients can discover it
+            ServiceRegistration sg = ServiceRegistration.getInstance();
+            sg.registerService("_grpc._tcp.local.", "co2monitor", port, "CO2Monitor server accepts CO2 concentration data and then analyze the CO2 stats");
             server.awaitTermination();
 
         } catch (IOException e) {

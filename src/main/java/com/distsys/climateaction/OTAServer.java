@@ -25,6 +25,9 @@ public class OTAServer extends OTAImplBase {
                     .build()
                     .start();
             System.out.println("Server started, listening on " + port);
+            // The server registers itself so that clients can discover it
+            ServiceRegistration sg = ServiceRegistration.getInstance();
+            sg.registerService("_grpc._tcp.local.", "ota", port, "OTA server will check whether there is a new version based on the device's version");
             server.awaitTermination();
 
         } catch (IOException e) {
