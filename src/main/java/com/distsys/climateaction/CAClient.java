@@ -14,14 +14,20 @@ import grpc.generated.climateaction.ota.FirmwareUpgrade;
 import grpc.generated.climateaction.ota.OTAGrpc;
 import grpc.generated.climateaction.ota.OTAGrpc.OTABlockingStub;
 import grpc.generated.climateaction.ota.OTAGrpc.OTAStub;
+import io.grpc.Context;
+import io.grpc.Context.CancellableContext;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.Status;
+import io.grpc.Status.Code;
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
@@ -112,7 +118,7 @@ public class CAClient implements ServiceListener {
         }
     }
 
-    public void testAlarmServer() throws InterruptedException {
+    public void testAlarmServer() {
         String host = "localhost";
         int port = 50051;
         ManagedChannel channel = ManagedChannelBuilder.
@@ -127,19 +133,27 @@ public class CAClient implements ServiceListener {
                     .setTimestamp(System.currentTimeMillis())
                     .setConcentration(99999)
                     .build();
-
-            ResponseMessage response = blockingStub.alarm(request);
+            // timeout reqeust
+            ResponseMessage response = blockingStub.withDeadlineAfter(2, TimeUnit.SECONDS).alarm(request);
             System.out.println("Alarm reuslt: " + response.getResult() + ", message: " + response.getMessage());
         } catch (StatusRuntimeException e) {
-            System.out.println("StatusRuntimeException");
+            Status status = e.getStatus();
+            Code code = status.getCode();
+            String description = status.getDescription();
+            System.out.println("!!! Error code: " + code);
+            System.out.println("!!! Error message: " + description);
             e.printStackTrace();
         } finally {
-            //shutdown channel
-            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+            try {
+                //shutdown channel
+                channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                System.out.println("Alarm client channel shutdown exception: " + e.getMessage());
+            }
         }
     }
 
-    public void testOTAServer() throws InterruptedException {
+    public void testOTAServer() {
         String host = "localhost";
         int port = 50052;
         ManagedChannel channel = ManagedChannelBuilder.
@@ -147,43 +161,46 @@ public class CAClient implements ServiceListener {
                 .usePlaintext()
                 .build();
         OTAStub stub = OTAGrpc.newStub(channel);
+
+        DeviceInfo request = DeviceInfo.newBuilder()
+                .setId("123")
+                .setVersion("1.0.1")
+                .build();
+        StreamObserver<FirmwareUpgrade> responseObserver = new StreamObserver<FirmwareUpgrade>() {
+            @Override
+            public void onNext(FirmwareUpgrade v) {
+                System.out.println("Received OTA response: " + v.toString());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.out.println("OTA error: " + t.getLocalizedMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("OTA onCompleted");
+            }
+
+        };
+        System.out.println("start listenForOTAUpgrade");
+        stub.withDeadlineAfter(2, TimeUnit.SECONDS).listenForOTAUpgrade(request, responseObserver);
         try {
-
-            DeviceInfo request = DeviceInfo.newBuilder()
-                    .setId("123")
-                    .setVersion("1.0.1")
-                    .build();
-            StreamObserver<FirmwareUpgrade> responseObserver = new StreamObserver<FirmwareUpgrade>() {
-                @Override
-                public void onNext(FirmwareUpgrade v) {
-                    System.out.println("Received OTA response: " + v.toString());
-                }
-
-                @Override
-                public void onError(Throwable t) {
-                    System.out.println("OTA error: " + t.getLocalizedMessage());
-                }
-
-                @Override
-                public void onCompleted() {
-                    System.out.println("OTA onCompleted");
-                }
-
-            };
-            System.out.println("start listenForOTAUpgrade");
-            stub.listenForOTAUpgrade(request, responseObserver);
             Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            System.out.println("sleep exception: " + e.getMessage());
+        }
 
-        } catch (StatusRuntimeException e) {
-            System.out.println("StatusRuntimeException");
-            e.printStackTrace();
-        } finally {
+        try {
             //shutdown channel
             channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            System.out.println("OTA client channel shutdown exception: " + e.getMessage());
         }
+
     }
 
-    public void testDataBatchSyncServer() throws InterruptedException {
+    public void dataBatchSyncServer() {
         String host = "localhost";
         int port = 50053;
         ManagedChannel channel = ManagedChannelBuilder.
@@ -191,7 +208,6 @@ public class CAClient implements ServiceListener {
                 .usePlaintext()
                 .build();
         DataBatchSyncStub stub = DataBatchSyncGrpc.newStub(channel);
-
         StreamObserver<ResponseMessage> responseObserver = new StreamObserver<ResponseMessage>() {
             @Override
             public void onNext(ResponseMessage v) {
@@ -210,47 +226,89 @@ public class CAClient implements ServiceListener {
 
         };
 
-        StreamObserver<CO2Concentration> requestObserver = stub.dataBatchSync(responseObserver);
+        StreamObserver<CO2Concentration> requestObserver = stub.withDeadlineAfter(2, TimeUnit.SECONDS).dataBatchSync(responseObserver);
 
-        Thread.sleep(1000);
-
-        CO2Concentration concentration1 = CO2Concentration.newBuilder()
-                .setId("123")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(876)
-                .build();
-        requestObserver.onNext(concentration1);
-        Thread.sleep(1000);
-
-        CO2Concentration concentration2 = CO2Concentration.newBuilder()
-                .setId("456")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(952)
-                .build();
-        requestObserver.onNext(concentration2);
-        Thread.sleep(1000);
-
-        CO2Concentration concentration3 = CO2Concentration.newBuilder()
-                .setId("7689")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(1001)
-                .build();
-        requestObserver.onNext(concentration3);
-        Thread.sleep(1000);
-
-        CO2Concentration concentration4 = CO2Concentration.newBuilder()
-                .setId("2967")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(999)
-                .build();
-        requestObserver.onNext(concentration4);
-        Thread.sleep(1000);
-
+        for (int i = 0; i < 4; i++) {
+            float co2 = (float) (500 + Math.random() * 1000);
+            CO2Concentration concentration = CO2Concentration.newBuilder()
+                    .setId("123")
+                    .setTimestamp(System.currentTimeMillis())
+                    .setConcentration(co2)
+                    .build();
+            requestObserver.onNext(concentration);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.print("sleep exception: " + e.getMessage());
+            }
+        }
         requestObserver.onCompleted();
-        Thread.sleep(1000);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.print("sleep exception: " + e.getMessage());
+        }
     }
 
-    public void testCO2MonitorServer() throws InterruptedException {
+    public void cancelDataBatchSyncServer() {
+        String host = "localhost";
+        int port = 50053;
+        ManagedChannel channel = ManagedChannelBuilder.
+                forAddress(host, port)
+                .usePlaintext()
+                .build();
+        DataBatchSyncStub stub = DataBatchSyncGrpc.newStub(channel);
+
+        CancellableContext cancellableCtx = Context.current().withCancellation();
+        cancellableCtx.run(() -> {
+            StreamObserver<ResponseMessage> responseObserver = new StreamObserver<ResponseMessage>() {
+                @Override
+                public void onNext(ResponseMessage v) {
+                    System.out.println(v.toString());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    System.out.println("DataBatchSync response error: " + t.getMessage());
+                }
+
+                @Override
+                public void onCompleted() {
+                    System.out.println("Data batch sync is completed");
+                }
+
+            };
+
+            StreamObserver<CO2Concentration> requestObserver = stub.dataBatchSync(responseObserver);
+
+            for (int i = 0; i < 2; i++) {
+                float co2 = (float) (500 + Math.random() * 1000);
+                CO2Concentration concentration = CO2Concentration.newBuilder()
+                        .setId("123")
+                        .setTimestamp(System.currentTimeMillis())
+                        .setConcentration(co2)
+                        .build();
+                requestObserver.onNext(concentration);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    System.out.print("sleep exception: " + e.getMessage());
+                }
+            }
+            System.out.println("!!! Cancelling data batch sync stream manually...");
+
+            // cancel manually
+            cancellableCtx.cancel(null);
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                System.out.print("sleep exception: " + e.getMessage());
+            }
+        });
+    }
+
+    public void testCO2MonitorServer() {
         String host = "localhost";
         int port = 50054;
         ManagedChannel channel = ManagedChannelBuilder.
@@ -278,44 +336,26 @@ public class CAClient implements ServiceListener {
 
         };
 
-        StreamObserver<CO2Concentration> requestObserver = stub.reportCO2(responseObserver);
-
-        Thread.sleep(1000);
-
-        CO2Concentration concentration1 = CO2Concentration.newBuilder()
-                .setId("123")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(876)
-                .build();
-        requestObserver.onNext(concentration1);
-        Thread.sleep(1000);
-
-        CO2Concentration concentration2 = CO2Concentration.newBuilder()
-                .setId("123")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(952)
-                .build();
-        requestObserver.onNext(concentration2);
-        Thread.sleep(1000);
-
-        CO2Concentration concentration3 = CO2Concentration.newBuilder()
-                .setId("123")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(1001)
-                .build();
-        requestObserver.onNext(concentration3);
-        Thread.sleep(1000);
-
-        CO2Concentration concentration4 = CO2Concentration.newBuilder()
-                .setId("123")
-                .setTimestamp(System.currentTimeMillis())
-                .setConcentration(999)
-                .build();
-        requestObserver.onNext(concentration4);
-
-        Thread.sleep(1000);
-
+        StreamObserver<CO2Concentration> requestObserver = stub.withDeadlineAfter(2, TimeUnit.SECONDS).reportCO2(responseObserver);
+        for (int i = 0; i < 4; i++) {
+            float tmp = (float) (500 * Math.random() * 1000);
+            CO2Concentration concentration = CO2Concentration.newBuilder()
+                    .setId("123")
+                    .setTimestamp(System.currentTimeMillis())
+                    .setConcentration(tmp)
+                    .build();
+            requestObserver.onNext(concentration);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.print("sleep exception: " + e.getMessage());
+            }
+        }
         requestObserver.onCompleted();
-        Thread.sleep(1000);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.print("sleep exception: " + e.getMessage());
+        }
     }
 }
