@@ -23,6 +23,7 @@ public class CO2MonitorServer extends CO2MonitorImplBase {
         try {
             Server server = ServerBuilder.forPort(port)
                     .addService(monitorServer)
+                    .intercept(new CAAuth())
                     .build()
                     .start();
             System.out.println("Server started, listening on " + port);

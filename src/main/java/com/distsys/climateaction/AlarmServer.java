@@ -25,6 +25,7 @@ public class AlarmServer extends AlarmImplBase {
         try {
             Server server = ServerBuilder.forPort(port)
                     .addService(alarmServer)
+                    .intercept(new CAAuth())
                     .build()
                     .start();
             System.out.println("Server started, listening on " + port);

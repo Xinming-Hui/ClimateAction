@@ -12,22 +12,23 @@ import grpc.generated.climateaction.monitor.CO2Stats;
 import grpc.generated.climateaction.ota.DeviceInfo;
 import grpc.generated.climateaction.ota.FirmwareUpgrade;
 import grpc.generated.climateaction.ota.OTAGrpc;
-import grpc.generated.climateaction.ota.OTAGrpc.OTABlockingStub;
 import grpc.generated.climateaction.ota.OTAGrpc.OTAStub;
+import io.grpc.Channel;
+import io.grpc.ClientInterceptors;
 import io.grpc.Context;
 import io.grpc.Context.CancellableContext;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.Metadata;
 import io.grpc.Status;
 import io.grpc.Status.Code;
 import io.grpc.StatusRuntimeException;
+import io.grpc.stub.MetadataUtils;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
@@ -96,26 +97,26 @@ public class CAClient implements ServiceListener {
 
     public static void main(String[] args) throws InterruptedException {
         CAClient client = new CAClient();
-//        client.testAlarmServer();
+        client.testAlarmServer();
 //        client.testOTAServer();
 //        client.testDataBatchSyncServer();
 //        client.testCO2MonitorServer();
-        try {
-            // Create a JmDNS instance
-            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            System.out.println("Client: InetAddress.getLocalHost():" + InetAddress.getLocalHost());
-            // Add a service listener that listens for all services on local host
-            jmdns.addServiceListener("_grpc._tcp.local.", client);
-
-            while (true) {
-                Thread.sleep(2000);
-            }
-
-        } catch (UnknownHostException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            // Create a JmDNS instance
+//            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+//            System.out.println("Client: InetAddress.getLocalHost():" + InetAddress.getLocalHost());
+//            // Add a service listener that listens for all services on local host
+//            jmdns.addServiceListener("_grpc._tcp.local.", client);
+//
+//            while (true) {
+//                Thread.sleep(2000);
+//            }
+//
+//        } catch (UnknownHostException e) {
+//            System.out.println(e.getMessage());
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public void testAlarmServer() {
@@ -125,7 +126,10 @@ public class CAClient implements ServiceListener {
                 forAddress(host, port)
                 .usePlaintext()
                 .build();
-        AlarmBlockingStub blockingStub = AlarmGrpc.newBlockingStub(channel);
+        Metadata metaData = CAMetaData.buildTokenMetadata();
+        Channel interceptedChannel = ClientInterceptors.intercept(channel,
+                MetadataUtils.newAttachHeadersInterceptor(metaData));
+        AlarmBlockingStub blockingStub = AlarmGrpc.newBlockingStub(interceptedChannel);
         try {
 
             CO2Concentration request = CO2Concentration.newBuilder()
@@ -160,7 +164,10 @@ public class CAClient implements ServiceListener {
                 forAddress(host, port)
                 .usePlaintext()
                 .build();
-        OTAStub stub = OTAGrpc.newStub(channel);
+        Metadata metaData = CAMetaData.buildTokenMetadata();
+        Channel interceptedChannel = ClientInterceptors.intercept(channel,
+                MetadataUtils.newAttachHeadersInterceptor(metaData));
+        OTAStub stub = OTAGrpc.newStub(interceptedChannel);
 
         DeviceInfo request = DeviceInfo.newBuilder()
                 .setId("123")
@@ -207,7 +214,10 @@ public class CAClient implements ServiceListener {
                 forAddress(host, port)
                 .usePlaintext()
                 .build();
-        DataBatchSyncStub stub = DataBatchSyncGrpc.newStub(channel);
+        Metadata metaData = CAMetaData.buildTokenMetadata();
+        Channel interceptedChannel = ClientInterceptors.intercept(channel,
+                MetadataUtils.newAttachHeadersInterceptor(metaData));
+        DataBatchSyncStub stub = DataBatchSyncGrpc.newStub(interceptedChannel);
         StreamObserver<ResponseMessage> responseObserver = new StreamObserver<ResponseMessage>() {
             @Override
             public void onNext(ResponseMessage v) {
@@ -257,7 +267,10 @@ public class CAClient implements ServiceListener {
                 forAddress(host, port)
                 .usePlaintext()
                 .build();
-        DataBatchSyncStub stub = DataBatchSyncGrpc.newStub(channel);
+        Metadata metaData = CAMetaData.buildTokenMetadata();
+        Channel interceptedChannel = ClientInterceptors.intercept(channel,
+                MetadataUtils.newAttachHeadersInterceptor(metaData));
+        DataBatchSyncStub stub = DataBatchSyncGrpc.newStub(interceptedChannel);
 
         CancellableContext cancellableCtx = Context.current().withCancellation();
         cancellableCtx.run(() -> {
@@ -315,7 +328,10 @@ public class CAClient implements ServiceListener {
                 forAddress(host, port)
                 .usePlaintext()
                 .build();
-        CO2MonitorStub stub = CO2MonitorGrpc.newStub(channel);
+        Metadata metaData = CAMetaData.buildTokenMetadata();
+        Channel interceptedChannel = ClientInterceptors.intercept(channel,
+                MetadataUtils.newAttachHeadersInterceptor(metaData));
+        CO2MonitorStub stub = CO2MonitorGrpc.newStub(interceptedChannel);
 
         StreamObserver<CO2Stats> responseObserver = new StreamObserver<CO2Stats>() {
             @Override

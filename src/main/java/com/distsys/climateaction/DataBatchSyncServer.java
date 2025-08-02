@@ -23,6 +23,7 @@ public class DataBatchSyncServer extends DataBatchSyncImplBase {
         try {
             Server server = ServerBuilder.forPort(port)
                     .addService(batchServer)
+                    .intercept(new CAAuth())
                     .build()
                     .start();
             System.out.println("Server started, listening on " + port);
