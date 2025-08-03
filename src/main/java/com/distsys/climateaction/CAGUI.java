@@ -153,10 +153,25 @@ public class CAGUI extends javax.swing.JFrame implements LogCallback {
         });
 
         ssSend.setText("Send");
+        ssSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ssSendActionPerformed(evt);
+            }
+        });
 
         csSend.setText("Send");
+        csSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                csSendActionPerformed(evt);
+            }
+        });
 
         bdSend.setText("Send");
+        bdSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bdSendActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -371,6 +386,10 @@ public class CAGUI extends javax.swing.JFrame implements LogCallback {
 
     private void unarySendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unarySendActionPerformed
         // TODO add your handling code here:
+        String id = this.unaryID.getText().trim();
+        String cStr = this.unaryConcentration.getText().trim();
+        float concentration = Float.parseFloat(cStr);
+        client.alarm(id, concentration);
     }//GEN-LAST:event_unarySendActionPerformed
 
     private void unaryIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unaryIDActionPerformed
@@ -392,6 +411,29 @@ public class CAGUI extends javax.swing.JFrame implements LogCallback {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_startNamingActionPerformed
+
+    private void ssSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ssSendActionPerformed
+        // TODO add your handling code here:
+        String id = this.ssID.getText().trim();
+        String version = this.ssVersion.getText().trim();
+        client.otaUpgrade(id, version);
+    }//GEN-LAST:event_ssSendActionPerformed
+
+    private void csSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csSendActionPerformed
+        // TODO add your handling code here:
+        String id = this.csID.getText().trim();
+        int start = Integer.parseInt(this.csRangeStart.getText().trim());
+        int end = Integer.parseInt(this.csRangeEnd.getText().trim());
+        client.dataBatchUpload(id, start, end);
+    }//GEN-LAST:event_csSendActionPerformed
+
+    private void bdSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bdSendActionPerformed
+        // TODO add your handling code here:
+        String id = this.bdID.getText().trim();
+        int start = Integer.parseInt(this.bdRangeStart.getText().trim());
+        int end = Integer.parseInt(this.bdRangeEnd.getText().trim());
+        client.co2Monitor(id, start, end);
+    }//GEN-LAST:event_bdSendActionPerformed
 
     /**
      * @param args the command line arguments

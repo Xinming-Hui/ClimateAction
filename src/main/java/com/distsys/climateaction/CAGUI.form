@@ -475,16 +475,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Send"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ssSendActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="csSend">
       <Properties>
         <Property name="text" type="java.lang.String" value="Send"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="csSendActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bdSend">
       <Properties>
         <Property name="text" type="java.lang.String" value="Send"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bdSendActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

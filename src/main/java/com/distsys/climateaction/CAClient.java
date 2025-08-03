@@ -104,12 +104,160 @@ public class CAClient implements ServiceListener {
     public void setLogCallback(LogCallback logCallback) {
         this.logCallback = logCallback;
     }
+    
+    public void alarm(String id, float concentration) {
+        CO2Concentration request = CO2Concentration.newBuilder()
+                    .setId(id)
+                    .setTimestamp(System.currentTimeMillis())
+                    .setConcentration(concentration)
+                    .build();
+            // reqeust with timeout
+            ResponseMessage response = alarmBlockingStub.withDeadlineAfter(2, TimeUnit.SECONDS).alarm(request);
+            System.out.println("Alarm reuslt: " + response.getResult() + ", message: " + response.getMessage());
+            logCallback.logEvent("Alarm reuslt: " + response.getResult() + ", message: " + response.getMessage());
+    }
+    
+    public void otaUpgrade(String id, String version) {
+        DeviceInfo request = DeviceInfo.newBuilder()
+                .setId(id)
+                .setVersion(version)
+                .build();
+        StreamObserver<FirmwareUpgrade> responseObserver = new StreamObserver<FirmwareUpgrade>() {
+            @Override
+            public void onNext(FirmwareUpgrade v) {
+                System.out.println("Received OTA response, result: " + v.getUpgrade());
+                logCallback.logEvent("Received OTA response, result: " + v.getUpgrade());
+                System.out.println("Detail response: " + v.toString());
+                logCallback.logEvent("Detail response: " + v.toString());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Status status = Status.fromThrowable(t);
+                System.out.println("gRPC error with status: " + status);
+                logCallback.logEvent("gRPC error with status: " + status);
+                System.out.println("Status code: " + status.getCode());
+                logCallback.logEvent("Status code: " + status.getCode());
+                System.out.println("Description: " + status.getDescription());
+                logCallback.logEvent("Description: " + status.getDescription());
+                t.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("OTA onCompleted");
+                logCallback.logEvent("OTA is Completed");
+            }
+
+        };
+        System.out.println("start listenForOTAUpgrade");
+        otaStub.withDeadlineAfter(2, TimeUnit.SECONDS).listenForOTAUpgrade(request, responseObserver);
+        
+    }
+    
+    public void dataBatchUpload(String id, int start, int end) {
+        StreamObserver<ResponseMessage> responseObserver = new StreamObserver<ResponseMessage>() {
+            @Override
+            public void onNext(ResponseMessage v) {
+                System.out.println(v.toString());
+                logCallback.logEvent(v.toString());
+            }
+            
+            @Override
+            public void onError(Throwable t) {
+                Status status = Status.fromThrowable(t);
+                System.out.println("gRPC error with status: " + status);
+                logCallback.logEvent("gRPC error with status: " + status);
+                System.out.println("Status code: " + status.getCode());
+                logCallback.logEvent("Status code: " + status.getCode());
+                System.out.println("Description: " + status.getDescription());
+                logCallback.logEvent("Description: " + status.getDescription());
+                t.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("Data batch sync is completed");
+                logCallback.logEvent("Data batch sync is completed");
+            }
+
+        };
+
+        StreamObserver<CO2Concentration> requestObserver = batchStub.withDeadlineAfter(20, TimeUnit.SECONDS).dataBatchSync(responseObserver);
+
+        for (int i = 0; i < 4; i++) {
+            float co2 = (float) (start + Math.random() * (end - start) + 1);
+            CO2Concentration concentration = CO2Concentration.newBuilder()
+                    .setId(id)
+                    .setTimestamp(System.currentTimeMillis())
+                    .setConcentration(co2)
+                    .build();
+            requestObserver.onNext(concentration);
+            logCallback.logEvent(concentration.toString());
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.print("sleep exception: " + e.getMessage());
+            }
+        }
+        requestObserver.onCompleted();
+    }
+    
+    public void co2Monitor(String id, int start, int end) {
+        StreamObserver<CO2Stats> responseObserver = new StreamObserver<CO2Stats>() {
+            @Override
+            public void onNext(CO2Stats v) {
+                System.out.println("Current CO2 concentration statistics: ");
+                logCallback.logEvent("Current CO2 concentration statistics: ");
+                System.out.println(v.toString());
+                logCallback.logEvent(v.toString());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Status status = Status.fromThrowable(t);
+                System.out.println("gRPC error with status: " + status);
+                logCallback.logEvent("gRPC error with status: " + status);
+                System.out.println("Status code: " + status.getCode());
+                logCallback.logEvent("Status code: " + status.getCode());
+                System.out.println("Description: " + status.getDescription());
+                logCallback.logEvent("Description: " + status.getDescription());
+                t.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("CO2 concentration report is completed");
+                logCallback.logEvent("CO2 concentration report is completed");
+            }
+
+        };
+
+        StreamObserver<CO2Concentration> requestObserver = monitorStub.withDeadlineAfter(20, TimeUnit.SECONDS).reportCO2(responseObserver);
+        for (int i = 0; i < 4; i++) {
+            float tmp = (float) (start + Math.random() * (end - start) + 1);
+            CO2Concentration concentration = CO2Concentration.newBuilder()
+                    .setId(id)
+                    .setTimestamp(System.currentTimeMillis())
+                    .setConcentration(tmp)
+                    .build();
+            requestObserver.onNext(concentration);
+            logCallback.logEvent(concentration.toString());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.print("sleep exception: " + e.getMessage());
+            }
+        }
+        requestObserver.onCompleted();
+    }
 
     public static void main(String[] args) throws InterruptedException {
-        CAClient client = new CAClient();
-        client.testAlarmServer();
+//        CAClient client = new CAClient();
+//        client.testAlarmServer();
 //        client.testOTAServer();
 //        client.testDataBatchSyncServer();
+//        client.testCancelDataBatchSyncServer();
 //        client.testCO2MonitorServer();
 //        try {
 //            // Create a JmDNS instance
@@ -217,7 +365,7 @@ public class CAClient implements ServiceListener {
 
     }
 
-    public void dataBatchSyncServer() {
+    public void testDataBatchSyncServer() {
         String host = "localhost";
         int port = 50053;
         ManagedChannel channel = ManagedChannelBuilder.
@@ -246,7 +394,7 @@ public class CAClient implements ServiceListener {
 
         };
 
-        StreamObserver<CO2Concentration> requestObserver = stub.withDeadlineAfter(2, TimeUnit.SECONDS).dataBatchSync(responseObserver);
+        StreamObserver<CO2Concentration> requestObserver = stub.withDeadlineAfter(20, TimeUnit.SECONDS).dataBatchSync(responseObserver);
 
         for (int i = 0; i < 4; i++) {
             float co2 = (float) (500 + Math.random() * 1000);
@@ -270,7 +418,7 @@ public class CAClient implements ServiceListener {
         }
     }
 
-    public void cancelDataBatchSyncServer() {
+    public void testCancelDataBatchSyncServer() {
         String host = "localhost";
         int port = 50053;
         ManagedChannel channel = ManagedChannelBuilder.
@@ -362,7 +510,7 @@ public class CAClient implements ServiceListener {
 
         };
 
-        StreamObserver<CO2Concentration> requestObserver = stub.withDeadlineAfter(2, TimeUnit.SECONDS).reportCO2(responseObserver);
+        StreamObserver<CO2Concentration> requestObserver = stub.withDeadlineAfter(20, TimeUnit.SECONDS).reportCO2(responseObserver);
         for (int i = 0; i < 4; i++) {
             float tmp = (float) (500 * Math.random() * 1000);
             CO2Concentration concentration = CO2Concentration.newBuilder()
