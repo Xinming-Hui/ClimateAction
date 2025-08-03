@@ -44,6 +44,7 @@ public class CAClient implements ServiceListener {
     private OTAStub otaStub;
     private DataBatchSyncStub batchStub;
     private CO2MonitorStub monitorStub;
+    private LogCallback logCallback;
 
     public CAClient() {
         alarmBlockingStub = null;
@@ -69,30 +70,39 @@ public class CAClient implements ServiceListener {
     @Override
     public void serviceResolved(ServiceEvent event) {
         System.out.println("Service resolved: " + event.getInfo());
+        logCallback.logEvent("Service resolved: " + event.getInfo());
         ServiceInfo info = event.getInfo();
         String host = info.getHostAddresses()[0];
         int port = info.getPort();
         String serviceName = info.getName();
         System.out.println("####service " + serviceName + " resolved at: " + host + ":" + port);
+        logCallback.logEvent("####service " + serviceName + " resolved at: " + host + ":" + port);
         ManagedChannel channel = ManagedChannelBuilder.
                 forAddress(host, port)
                 .usePlaintext()
                 .build();
+        Metadata metaData = CAMetaData.buildTokenMetadata();
+        Channel interceptedChannel = ClientInterceptors.intercept(channel,
+                MetadataUtils.newAttachHeadersInterceptor(metaData));
         if (serviceName.equals("alarm")) {
-            alarmBlockingStub = AlarmGrpc.newBlockingStub(channel);
+            alarmBlockingStub = AlarmGrpc.newBlockingStub(interceptedChannel);
         }
 
         if (serviceName.equals("co2monitor")) {
-            monitorStub = CO2MonitorGrpc.newStub(channel);
+            monitorStub = CO2MonitorGrpc.newStub(interceptedChannel);
         }
 
         if (serviceName.equals("ota")) {
-            otaStub = OTAGrpc.newStub(channel);
+            otaStub = OTAGrpc.newStub(interceptedChannel);
         }
 
         if (serviceName.equals("databatchsync")) {
-            batchStub = DataBatchSyncGrpc.newStub(channel);
+            batchStub = DataBatchSyncGrpc.newStub(interceptedChannel);
         }
+    }
+    
+    public void setLogCallback(LogCallback logCallback) {
+        this.logCallback = logCallback;
     }
 
     public static void main(String[] args) throws InterruptedException {

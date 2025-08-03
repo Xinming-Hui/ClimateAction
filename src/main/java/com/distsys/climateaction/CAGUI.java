@@ -4,19 +4,27 @@
  */
 package com.distsys.climateaction;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import javax.jmdns.JmDNS;
+
 /**
  *
  * @author xinminghui
  */
-public class CAGUI extends javax.swing.JFrame {
+public class CAGUI extends javax.swing.JFrame implements LogCallback {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CAGUI.class.getName());
+    private CAClient client;
 
     /**
      * Creates new form CAGUI
      */
     public CAGUI() {
         initComponents();
+        client = new CAClient();
+        client.setLogCallback(this);
     }
 
     /**
@@ -72,6 +80,11 @@ public class CAGUI extends javax.swing.JFrame {
         jLabel1.setText("Naming Services");
 
         startNaming.setText("Start (Registration & Discovery)");
+        startNaming.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startNamingActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Unary Service - Alarm");
 
@@ -79,27 +92,52 @@ public class CAGUI extends javax.swing.JFrame {
 
         jLabel4.setText("CO2 concentration");
 
+        unaryID.setColumns(5);
+        unaryID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unaryIDActionPerformed(evt);
+            }
+        });
+
+        unaryConcentration.setColumns(5);
+
         jLabel5.setText("Server Streaming - OTA");
 
         jLabel6.setText("id");
 
+        ssID.setColumns(5);
+
         jLabel7.setText("version");
+
+        ssVersion.setColumns(5);
 
         jLabel8.setText("Client Streaming - Data Batch Upload");
 
         jLabel9.setText("id");
 
+        csID.setColumns(5);
+
         jLabel10.setText("range start");
 
+        csRangeStart.setColumns(5);
+
         jLabel11.setText("range end");
+
+        csRangeEnd.setColumns(5);
 
         jLabel12.setText("Bi directional Streaming - CO2 Monitor");
 
         jLabel13.setText("id");
 
+        bdID.setColumns(5);
+
         jLabel14.setText("range start");
 
         jLabel15.setText("range end");
+
+        bdRangeStart.setColumns(5);
+
+        bdRangeEnd.setColumns(5);
 
         jLabel16.setText("Result");
 
@@ -335,6 +373,26 @@ public class CAGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_unarySendActionPerformed
 
+    private void unaryIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unaryIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_unaryIDActionPerformed
+
+    private void startNamingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startNamingActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Create a JmDNS instance
+            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+            System.out.println("Client: InetAddress.getLocalHost():" + InetAddress.getLocalHost());
+            // Add a service listener that listens for all services on local host
+            jmdns.addServiceListener("_grpc._tcp.local.", client);
+
+        } catch (UnknownHostException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_startNamingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,4 +458,10 @@ public class CAGUI extends javax.swing.JFrame {
     private javax.swing.JTextField unaryID;
     private javax.swing.JButton unarySend;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void logEvent(String message) {
+        this.resultTextArea.append(message + "\n");
+        this.resultTextArea.setCaretPosition(this.resultTextArea.getDocument().getLength());
+    }
 }
