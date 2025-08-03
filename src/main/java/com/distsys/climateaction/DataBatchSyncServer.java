@@ -13,6 +13,9 @@ import java.util.ArrayList;
  *
  * @author xinminghui
  */
+/* Client streaming
+* Batch upload of data accumulated 
+*/
 public class DataBatchSyncServer extends DataBatchSyncImplBase {
     
     public static void main(String[] args) {
@@ -43,6 +46,7 @@ public class DataBatchSyncServer extends DataBatchSyncImplBase {
     }
     
     @Override
+    // upload data continuously
     public StreamObserver<CO2Concentration> dataBatchSync(StreamObserver<ResponseMessage> responseObserver) {
         return new StreamObserver<CO2Concentration>() {
             ArrayList<CO2Concentration> list = new ArrayList<>();

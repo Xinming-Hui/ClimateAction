@@ -12,6 +12,10 @@ import java.io.IOException;
  *
  * @author xinminghui
  */
+/* Server Streaming 
+* Listen for OTA upgrade, the device reports its own firmware version number, 
+* and then continuously monitors whether there is a new version that needs to be upgraded.
+*/
 public class OTAServer extends OTAImplBase {
 
     public static void main(String[] args) {
@@ -42,12 +46,16 @@ public class OTAServer extends OTAImplBase {
     }
 
     @Override
+    // Simulate server streaming and send 3 response messages
     public void listenForOTAUpgrade(DeviceInfo request, StreamObserver<FirmwareUpgrade> responseObserver) {
         System.out.println("received listenForOTAUpgrade request");
         String id = request.getId();
         FirmwareUpgrade response = FirmwareUpgrade.newBuilder()
                 .setId(id)
                 .setUpgrade(false)
+                .setVersion("")
+                .setDownloadUrl("")
+                .setSha256Hash("")
                 .build();
         FirmwareUpgrade upgrade = FirmwareUpgrade.newBuilder()
                 .setId(id)

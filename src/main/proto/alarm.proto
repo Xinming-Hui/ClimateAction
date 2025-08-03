@@ -11,8 +11,8 @@ option java_outer_classname = "AlarmServiceImpl";
 
 service Alarm {
 
-  // Unary - when the sensor detects abnormal climate values, it immediately alerts the server and waits for response confirmation
-  // Server confirms 
+  // Unary - Report the carbon dioxide concentration, 
+  // and the server will decide whether to alarm 
   rpc Alarm(CO2Concentration ) returns (ResponseMessage) {}  
 }
 

@@ -10,6 +10,11 @@ import javax.jmdns.ServiceInfo;
  *
  * @author xinminghui
  */
+/* Naming - Registration
+* Singleton Pattern
+* Services can register themselves by invoking registerService. 
+* The constructor creates the DNS register object
+*/
 public class ServiceRegistration {
     private static JmDNS jmdns; 
     private static ServiceRegistration theRegister;

@@ -38,6 +38,10 @@ import javax.jmdns.ServiceListener;
  *
  * @author xinminghui
  */
+/* Naming - Discovery
+* CAClient implements ServiceListener interface,
+* automatically discover services and call corresponding requests
+*/
 public class CAClient implements ServiceListener {
 
     private AlarmBlockingStub alarmBlockingStub;

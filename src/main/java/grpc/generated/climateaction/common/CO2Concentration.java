@@ -4,6 +4,10 @@
 package grpc.generated.climateaction.common;
 
 /**
+ * <pre>
+ * Common message
+ * </pre>
+ *
  * Protobuf type {@code climateaction.CO2Concentration}
  */
 public  final class CO2Concentration extends
@@ -331,6 +335,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   * Common message
+   * </pre>
+   *
    * Protobuf type {@code climateaction.CO2Concentration}
    */
   public static final class Builder extends

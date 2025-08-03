@@ -88,8 +88,8 @@ public final class AlarmGrpc {
 
     /**
      * <pre>
-     * Unary - when the sensor detects abnormal climate values, it immediately alerts the server and waits for response confirmation
-     * Server confirms 
+     * Unary - Report the carbon dioxide concentration, 
+     * and the server will decide whether to alarm 
      * </pre>
      */
     public void alarm(grpc.generated.climateaction.common.CO2Concentration request,
@@ -130,8 +130,8 @@ public final class AlarmGrpc {
 
     /**
      * <pre>
-     * Unary - when the sensor detects abnormal climate values, it immediately alerts the server and waits for response confirmation
-     * Server confirms 
+     * Unary - Report the carbon dioxide concentration, 
+     * and the server will decide whether to alarm 
      * </pre>
      */
     public void alarm(grpc.generated.climateaction.common.CO2Concentration request,
@@ -161,8 +161,8 @@ public final class AlarmGrpc {
 
     /**
      * <pre>
-     * Unary - when the sensor detects abnormal climate values, it immediately alerts the server and waits for response confirmation
-     * Server confirms 
+     * Unary - Report the carbon dioxide concentration, 
+     * and the server will decide whether to alarm 
      * </pre>
      */
     public grpc.generated.climateaction.common.ResponseMessage alarm(grpc.generated.climateaction.common.CO2Concentration request) {
@@ -191,8 +191,8 @@ public final class AlarmGrpc {
 
     /**
      * <pre>
-     * Unary - when the sensor detects abnormal climate values, it immediately alerts the server and waits for response confirmation
-     * Server confirms 
+     * Unary - Report the carbon dioxide concentration, 
+     * and the server will decide whether to alarm 
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<grpc.generated.climateaction.common.ResponseMessage> alarm(

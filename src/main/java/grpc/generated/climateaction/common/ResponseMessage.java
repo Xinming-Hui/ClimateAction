@@ -4,6 +4,10 @@
 package grpc.generated.climateaction.common;
 
 /**
+ * <pre>
+ * Common message
+ * </pre>
+ *
  * Protobuf type {@code climateaction.ResponseMessage}
  */
 public  final class ResponseMessage extends
@@ -298,6 +302,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   * Common message
+   * </pre>
+   *
    * Protobuf type {@code climateaction.ResponseMessage}
    */
   public static final class Builder extends

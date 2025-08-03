@@ -5,6 +5,7 @@ package climateaction;
 option java_multiple_files = true;
 option java_package = "grpc.generated.climateaction.common";
 
+// Common message
 message CO2Concentration {
   string id = 1;
   int64 timestamp = 2;
@@ -12,6 +13,7 @@ message CO2Concentration {
   float concentration = 3;
 }
 
+// Common message
 message ResponseMessage {
   bool  result = 1;
   string message = 2;

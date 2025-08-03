@@ -7,8 +7,12 @@ import io.grpc.Metadata.Key;
  *
  * @author xinminghui
  */
+/* Metadata
+* Build common metadata
+*/
 public class CAMetaData {
 
+    // build token key
     public static Metadata buildTokenMetadata() {
         Metadata metaData = new Metadata();
         Key<String> tokenKey = Key.of("token", Metadata.ASCII_STRING_MARSHALLER);

@@ -12,6 +12,10 @@ import java.io.IOException;
  *
  * @author xinminghui
  */
+/* Unary
+* Report the carbon dioxide concentration, 
+* and the server will decide whether to alarm.
+*/
 public class AlarmServer extends AlarmImplBase {
 
     // CO2 threshold: 5,000 ppm
@@ -45,6 +49,7 @@ public class AlarmServer extends AlarmImplBase {
     }
 
     @Override
+    // When the concentration exceeds the threshold, trigger alarm
     public void alarm(CO2Concentration request, StreamObserver<ResponseMessage> responseObserver) {
         System.out.println("receiving alarm request");
 

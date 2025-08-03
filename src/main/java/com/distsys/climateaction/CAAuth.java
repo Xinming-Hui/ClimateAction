@@ -11,7 +11,10 @@ import io.grpc.Status;
  *
  * @author xinminghui
  */
-
+/* Authetication - Middleware
+* Parse the token value from the metadata 
+* and then determine whether it is valid
+*/
 public class CAAuth implements ServerInterceptor {
 
     @Override

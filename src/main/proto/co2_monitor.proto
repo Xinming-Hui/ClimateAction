@@ -11,7 +11,7 @@ option java_outer_classname = "CO2MonitorServiceImpl";
 
 service CO2Monitor {
    // Bidirectional. The client reports the carbon dioxide (CO2) concentration continuously. 
-   // The server responds continuously with a rolling statistics of the CO2 concentration over the previous 3 minutes
+   // The server responds continuously with a statistics of the CO2 concentration
 
    rpc ReportCO2(stream CO2Concentration ) returns (stream CO2Stats) {}
 }

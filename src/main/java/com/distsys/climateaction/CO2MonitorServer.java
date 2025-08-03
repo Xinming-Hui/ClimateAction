@@ -13,6 +13,10 @@ import java.util.ArrayList;
  *
  * @author xinminghui
  */
+/* Bidirectional
+* The client reports the carbon dioxide (CO2) concentration continuously. 
+*  The server responds continuously with a statistics of the CO2 concentration
+*/
 public class CO2MonitorServer extends CO2MonitorImplBase {
 
     public static void main(String[] args) {

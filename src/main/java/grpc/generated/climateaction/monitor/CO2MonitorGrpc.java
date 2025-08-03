@@ -18,7 +18,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 /**
  * <pre>
  * Bidirectional. The client reports the carbon dioxide (CO2) concentration continuously. 
- * The server responds continuously with a rolling statistics of the CO2 concentration over the previous 3 minutes
+ * The server responds continuously with a statistics of the CO2 concentration
  * </pre>
  */
 @javax.annotation.Generated(
@@ -89,7 +89,7 @@ public final class CO2MonitorGrpc {
   /**
    * <pre>
    * Bidirectional. The client reports the carbon dioxide (CO2) concentration continuously. 
-   * The server responds continuously with a rolling statistics of the CO2 concentration over the previous 3 minutes
+   * The server responds continuously with a statistics of the CO2 concentration
    * </pre>
    */
   public static abstract class CO2MonitorImplBase implements io.grpc.BindableService {
@@ -117,7 +117,7 @@ public final class CO2MonitorGrpc {
   /**
    * <pre>
    * Bidirectional. The client reports the carbon dioxide (CO2) concentration continuously. 
-   * The server responds continuously with a rolling statistics of the CO2 concentration over the previous 3 minutes
+   * The server responds continuously with a statistics of the CO2 concentration
    * </pre>
    */
   public static final class CO2MonitorStub extends io.grpc.stub.AbstractStub<CO2MonitorStub> {
@@ -148,7 +148,7 @@ public final class CO2MonitorGrpc {
   /**
    * <pre>
    * Bidirectional. The client reports the carbon dioxide (CO2) concentration continuously. 
-   * The server responds continuously with a rolling statistics of the CO2 concentration over the previous 3 minutes
+   * The server responds continuously with a statistics of the CO2 concentration
    * </pre>
    */
   public static final class CO2MonitorBlockingStub extends io.grpc.stub.AbstractStub<CO2MonitorBlockingStub> {
@@ -171,7 +171,7 @@ public final class CO2MonitorGrpc {
   /**
    * <pre>
    * Bidirectional. The client reports the carbon dioxide (CO2) concentration continuously. 
-   * The server responds continuously with a rolling statistics of the CO2 concentration over the previous 3 minutes
+   * The server responds continuously with a statistics of the CO2 concentration
    * </pre>
    */
   public static final class CO2MonitorFutureStub extends io.grpc.stub.AbstractStub<CO2MonitorFutureStub> {
