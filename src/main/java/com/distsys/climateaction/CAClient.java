@@ -41,7 +41,7 @@ import javax.jmdns.ServiceListener;
 /* Naming - Discovery
 * CAClient implements ServiceListener interface,
 * automatically discover services and call corresponding requests
-*/
+ */
 public class CAClient implements ServiceListener {
 
     private AlarmBlockingStub alarmBlockingStub;
@@ -104,13 +104,14 @@ public class CAClient implements ServiceListener {
             batchStub = DataBatchSyncGrpc.newStub(interceptedChannel);
         }
     }
-    
+
     public void setLogCallback(LogCallback logCallback) {
         this.logCallback = logCallback;
     }
-    
+
     public void alarm(String id, float concentration) {
-        CO2Concentration request = CO2Concentration.newBuilder()
+        try {
+            CO2Concentration request = CO2Concentration.newBuilder()
                     .setId(id)
                     .setTimestamp(System.currentTimeMillis())
                     .setConcentration(concentration)
@@ -119,8 +120,18 @@ public class CAClient implements ServiceListener {
             ResponseMessage response = alarmBlockingStub.withDeadlineAfter(2, TimeUnit.SECONDS).alarm(request);
             System.out.println("Alarm reuslt: " + response.getResult() + ", message: " + response.getMessage());
             logCallback.logEvent("Alarm reuslt: " + response.getResult() + ", message: " + response.getMessage());
+        } catch (StatusRuntimeException e) {
+            Status status = e.getStatus();
+            Code code = status.getCode();
+            String description = status.getDescription();
+            System.out.println("!!! Error code: " + code);
+            logCallback.logEvent("!!! Error code: " + code);
+            System.out.println("!!! Error message: " + description);
+            logCallback.logEvent("!!! Error message: " + description);
+            e.printStackTrace();
+        }
     }
-    
+
     public void otaUpgrade(String id, String version) {
         DeviceInfo request = DeviceInfo.newBuilder()
                 .setId(id)
@@ -156,9 +167,9 @@ public class CAClient implements ServiceListener {
         };
         System.out.println("start listenForOTAUpgrade");
         otaStub.withDeadlineAfter(2, TimeUnit.SECONDS).listenForOTAUpgrade(request, responseObserver);
-        
+
     }
-    
+
     public void dataBatchUpload(String id, int start, int end) {
         StreamObserver<ResponseMessage> responseObserver = new StreamObserver<ResponseMessage>() {
             @Override
@@ -166,7 +177,7 @@ public class CAClient implements ServiceListener {
                 System.out.println(v.toString());
                 logCallback.logEvent(v.toString());
             }
-            
+
             @Override
             public void onError(Throwable t) {
                 Status status = Status.fromThrowable(t);
@@ -206,7 +217,7 @@ public class CAClient implements ServiceListener {
         }
         requestObserver.onCompleted();
     }
-    
+
     public void co2Monitor(String id, int start, int end) {
         StreamObserver<CO2Stats> responseObserver = new StreamObserver<CO2Stats>() {
             @Override
