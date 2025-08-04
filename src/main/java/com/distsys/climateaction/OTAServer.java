@@ -26,7 +26,7 @@ public class OTAServer extends OTAImplBase {
         try {
             Server server = ServerBuilder.forPort(port)
                     .addService(otaServer)
-                    .intercept(new CAAuth())
+                    .intercept(new CAAuth()) // inject authentitation
                     .build()
                     .start();
             System.out.println("Server started, listening on " + port);

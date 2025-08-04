@@ -72,6 +72,7 @@ public class CAClient implements ServiceListener {
     }
 
     @Override
+    // Naming - Discovery
     public void serviceResolved(ServiceEvent event) {
         System.out.println("Service resolved: " + event.getInfo());
         logCallback.logEvent("Service resolved: " + event.getInfo());
@@ -85,6 +86,7 @@ public class CAClient implements ServiceListener {
                 forAddress(host, port)
                 .usePlaintext()
                 .build();
+        // Inject metatdata
         Metadata metaData = CAMetaData.buildTokenMetadata();
         Channel interceptedChannel = ClientInterceptors.intercept(channel,
                 MetadataUtils.newAttachHeadersInterceptor(metaData));
@@ -166,6 +168,7 @@ public class CAClient implements ServiceListener {
 
         };
         System.out.println("start listenForOTAUpgrade");
+        // reqeust with timeout
         otaStub.withDeadlineAfter(2, TimeUnit.SECONDS).listenForOTAUpgrade(request, responseObserver);
 
     }
@@ -197,7 +200,8 @@ public class CAClient implements ServiceListener {
             }
 
         };
-
+        
+        // reqeust with timeout
         StreamObserver<CO2Concentration> requestObserver = batchStub.withDeadlineAfter(20, TimeUnit.SECONDS).dataBatchSync(responseObserver);
 
         for (int i = 0; i < 4; i++) {
@@ -247,7 +251,7 @@ public class CAClient implements ServiceListener {
             }
 
         };
-
+        // reqeust with timeout
         StreamObserver<CO2Concentration> requestObserver = monitorStub.withDeadlineAfter(20, TimeUnit.SECONDS).reportCO2(responseObserver);
         for (int i = 0; i < 4; i++) {
             float tmp = (float) (start + Math.random() * (end - start) + 1);
